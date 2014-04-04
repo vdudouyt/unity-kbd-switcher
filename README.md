@@ -3,8 +3,6 @@ unity-kbd-switcher
 
 Alternative language switcher with sophisticated hotkeys configuration
 
-Note: this program will unset your default layout switch shortcut on startup. It's easy to set it back in System Preferences if you'll decide to discontinue using.
-
 ### Configuration examples
 
 1. Caps Lock circulates between English and Russian, Ctrl+Space switches to Japanese/Anthy:
