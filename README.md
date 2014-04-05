@@ -5,7 +5,7 @@ Alternative language switcher with sophisticated hotkeys configuration
 
 ### ~/.kbdrc examples
 
-1. Caps Lock circulates between English and Russian, Ctrl+Space switches to Japanese/Anthy:
+1. Caps Lock circulates between English and Russian, Ctrl+Space switches to Japanese:
  
  ```nohighlight
  keymap['Caps_Lock'] = Circulate('us', 'ru')
