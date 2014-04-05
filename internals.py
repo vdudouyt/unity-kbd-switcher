@@ -17,8 +17,7 @@ class Circulate():
 		self.pos = self.subset.index(filtered[0])
 
 	def run(self):
-		if app.current_grouping is self:
-			self.pos = (self.pos + 1) % len(self.subset)
+		self.pos = (self.pos + 1) % len(self.subset)
 		todo = self.subset[self.pos]
 		todo.run()
 
@@ -33,10 +32,12 @@ class Layout():
 		app.set_language(self.language_code)
 
 class IMELayout(Layout):
-	"Like Layout(), but ensures that setxbmap equals 'en' first"
 	def run(self):
-		os.system("setxkbmap us") # Avoid bug
-		app.set_language(self.language_code)
+		if app.current_layout == self:
+			app.set_language(app.previous_layout.language_code)
+		else:
+			os.system("setxkbmap us") # Avoid bug
+			app.set_language(self.language_code)
 
 def to_layout(t):
 	return Layout(t) if type(t) is str else t
