@@ -3,13 +3,13 @@ unity-kbd-switcher
 
 Alternative language switcher with sophisticated hotkeys configuration
 
-### Configuration examples
+### ~/.kbdrc examples
 
 1. Caps Lock circulates between English and Russian, Ctrl+Space switches to Japanese/Anthy:
  
  ```nohighlight
- keymap['CAPS_LOCK'] = Circulate('en', 'ru')
- keymap['<Ctrl>Space'] = IBusLayout('ja')
+ keymap['Caps_Lock'] = Circulate('us', 'ru')
+ keymap['<Control>space'] = IMELayout('anthy')
  ```
  
 2. Alt+&lt;1, 2, 3&gt; switches to English, Russian and Ukrainian correspondingly:
