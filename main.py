@@ -21,6 +21,7 @@ class Example(Gtk.Window):
 		execfile(rc)
 		self.keymap = keymap
 
+		self.current_layout = None
 		self.on_sources_changed(None, None)
 		self.on_current_changed(None, None)
 
@@ -62,6 +63,8 @@ class Example(Gtk.Window):
 		todo.run()
 	
 	def on_current_changed(self, settings, name):
+		if self.current_layout:
+			self.previous_layout = self.current_layout
 		self.current = self.source_settings.get_uint('current')
 		self.current_language_code = self.language_codes[self.current]
 		self.current_layout = internals.language_code_to_layout[self.current_language_code]
