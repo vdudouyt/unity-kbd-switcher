@@ -17,15 +17,15 @@ class Example(Gtk.Window):
 		rc = "%s/.kbdrc" % os.getenv("HOME")
 		if not os.path.isfile(rc):
 			self.generate_default_rc(rc)
-		keys = {}
+		keymap = {}
 		execfile(rc)
-		self.keys = keys
+		self.keymap = keymap
 
 		self.on_sources_changed(None, None)
 		self.on_current_changed(None, None)
 
 		# Binding global hotkeys
-		for key in self.keys.keys():
+		for key in self.keymap.keys():
 			print "Binding %s" % key
 			if not Keybinder.bind(key, self.on_global_key_activated, None):
 				self.show_message("Could not bind '%s'" % key)
@@ -47,7 +47,7 @@ class Example(Gtk.Window):
 	def generate_default_rc(self, path):
 		language_codes = map(lambda (subsystem, language_code) : language_code, self.sources)
 		with open(path, "w") as file:
-			file.write("keys['Caps_Lock'] = Circulate(%s)\n" % self.generate_strings_list(language_codes))
+			file.write("keymap['Caps_Lock'] = Circulate(%s)\n" % self.generate_strings_list(language_codes))
 	
 	def generate_strings_list(self, components):
 		return string.join(map(lambda t: "'" + t + "'", components), ", ")
@@ -56,7 +56,7 @@ class Example(Gtk.Window):
 		self.source_settings.set_uint('current', self.language_codes.index(language_code))
 	
 	def on_global_key_activated(self, keystr, user_data):
-		todo = self.keys[keystr]
+		todo = self.keymap[keystr]
 		if type(todo) == str:
 			todo = SetLayout(todo)
 		todo.run()
