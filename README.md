@@ -19,3 +19,8 @@ Alternative language switcher with sophisticated hotkeys configuration
  keymap['<Alt>2'] = 'ru'
  keymap['<Alt>3'] = 'ua'
  ```
+
+### Installation
+
+1. Install a [DEB package](https://github.com/vdudouyt/unity-kbd-switcher/releases/)
+2. Restart session
