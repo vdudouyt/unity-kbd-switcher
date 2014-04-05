@@ -40,8 +40,9 @@ class Example(Gtk.Window):
 
 	def show_message(self, msg):
 		dialog = Gtk.MessageDialog(self, 0,
-				Gtk.MessageType.ERROR, Gtk.ButtonsType.CANCEL,
+				Gtk.MessageType.ERROR, Gtk.ButtonsType.OK,
 				msg)
+		dialog.set_title('unity-kbd-switcher')
 		dialog.run()
 		dialog.destroy()
 	
@@ -76,6 +77,14 @@ class Example(Gtk.Window):
 	def on_sources_changed(self, settings, name):
 		self.sources = self.source_settings.get_value('sources')
 		self.language_codes = map(lambda (subsystem, language_code) : language_code, self.sources)
+
+		# Check that all language_codes are known by system
+		langs_cfg = internals.language_code_to_layout.keys()
+		langs_system = self.language_codes
+		languages_not_found = [ lang for lang in langs_cfg if lang not in langs_system ]
+		if len(languages_not_found):
+			self.show_message("Couldn't find the following languages: " + string.join(languages_not_found, ", ") + "\n"
+			+ "Please add in System Settings -> Text Entry -> Input sources.")
 
 if __name__ == "__main__":
 	Example()
