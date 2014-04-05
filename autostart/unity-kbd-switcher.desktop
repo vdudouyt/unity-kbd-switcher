@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=unity-kbd-switcher
+Exec=/usr/bin/env python /usr/share/unity-kbd-switcher/main.py
+NoDisplay=true
+StartupNotify=false
+Terminal=false
