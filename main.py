@@ -1,4 +1,4 @@
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk, Gio, GLib
 from gi.repository import Keybinder
 from internals import Layout, IMELayout, Circulate
 import os, signal, string, internals
@@ -7,6 +7,18 @@ class Example(Gtk.Window):
 	def __init__(self):
 		Gtk.Window.__init__(self, type=Gtk.WindowType.TOPLEVEL)
 		Keybinder.init()
+
+		# Deactivating WM keybindings
+		keybindings = Gio.Settings.new('org.gnome.desktop.wm.keybindings')
+		wm_hotkey = lambda t: keybindings.get_value(t)[0]
+		if wm_hotkey('switch-input-source') or wm_hotkey('switch-input-source-backward'):
+			self.show_message("Unity-Kbd-Switcher is going to deactivate the following WM keybindings\n"
+				+ "You can set them later in settings if you'll decide to discontinue using.\n"
+				+ "\n"
+				+ "switch-input-source: " + wm_hotkey('switch-input-source') + "\n"
+				+ "switch-input-source-backward: " + wm_hotkey('switch-input-source-backward') + "\n")
+			keybindings.set_value('switch-input-source', GLib.Variant('as', ['']))
+			keybindings.set_value('switch-input-source-backward', GLib.Variant('as', ['']))
 
 		# Initializing GSettings
 		self.source_settings = Gio.Settings.new('org.gnome.desktop.input-sources')
