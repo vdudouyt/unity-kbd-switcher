@@ -1,7 +1,7 @@
 unity-kbd-switcher
 ==================
 
-Alternative language switcher with sophisticated hotkeys configuration
+Alternative language switcher with sophisticated keybindings configuration
 
 ### ~/.kbdrc examples
 
